@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --> 
+    <title>login page</title>
+
+     <!-- Bootstrap and CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'user_api/bs/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'user_api/styles.css' %}"/>
+
+   
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries  -->
+    <!-- Warning: Respond.js doesn't work if you view the page via file:// -->
+    <!-- [If lt IE 9]
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/html5shiv/1.4.2/respond.min.js"></script>
+     <![endif] -->
+    
+
+</head>
+<body>
+
+    </div>
+    <div class="container border mt-5 bg-light">
+        <h1>login</h1>
+        <p class="lead">Use this form to login in to your account</p>
+
+        <form action="log-in" method="post">
+
+            <div class="form-group mb-3">
+                <label for="login-email" class="sr-only">Email:</label>
+                <input type="email" class="form-control" id="login-username" placeholder="Email Address" name="email">
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="login-password" class="sr-only">Password:</label>
+                <input type="text" class="form-control" id="login-password" placeholder="password" name="password">
+            </div>
+            
+            <div class="checkbox mb-3">
+                <label><input type="checkbox">Remember me</label>
+            </div>
+
+            <button class="btn btn-primary" type="submit" name="login">log in</button>
+            <br>
+            <hr>
+            <p class="text-center">if you dont have an account <a href="http://127.0.0.1:8000/"> Register</a></p>
+        </form>
+    </div>
+
+    
+       
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'user_api/bs/js/bootstrap.js' %}"></script>
+</body>
+</html>
