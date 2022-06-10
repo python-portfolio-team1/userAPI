@@ -35,10 +35,10 @@
 
     <div class="container border mt-5 bg-light">
         <h1>Register</h1>
-        <h2>i want hooge to make a changes</h2>
         <p class="lead">Create your User account</p>
 
-        <form  method="post">
+        <form action="addrecord/" method="post">
+            {% csrf_token %}
         
             <div class="form-group mb-3">
                 <label for="signUp-firstName" class="sr-only">First Name<span class="text-danger">*</span></label>
