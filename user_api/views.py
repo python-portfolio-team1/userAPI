@@ -1,8 +1,53 @@
+from urllib import response
 from django.shortcuts import render
 import email
 from .models import Users
 from django.urls import reverse
+<<<<<<< HEAD
+from django.http import HttpResponseRedirect, JsonResponse
+from .serializers import UsersSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
+@api_view(['GET', 'POST'])
+def users_list(request):
+
+    if request.method == 'GET':
+        users = Users.objects.all()
+        serializer = UsersSerializer(users, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = UsersSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+ 
+@api_view(['GET', 'PUT', 'DELETE'])
+def users_detail(request):
+
+    try:
+        users = Users.object.get(pk=id)
+    except Users.DoesNotExist:
+        return response(status=status.HTTP_404_NOT_FOUND)    
+
+    if request.method =='GET': 
+        serializer = UsersSerializer(users)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = UsersSerializer(users, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
+    elif request.method =='DELETE':
+        users.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+=======
 from django.http import HttpResponseRedirect
+>>>>>>> 19af9595cb35e085e35a41eb04a64a43b948b8e0
 
 # Create your views here.
 
