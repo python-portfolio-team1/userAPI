@@ -3,7 +3,6 @@ from django.shortcuts import render
 import email
 from .models import Users
 from django.urls import reverse
-<<<<<<< HEAD
 from django.http import HttpResponseRedirect, JsonResponse
 from .serializers import UsersSerializer
 from rest_framework.decorators import api_view
@@ -45,9 +44,7 @@ def users_detail(request):
         users.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-=======
 from django.http import HttpResponseRedirect
->>>>>>> 19af9595cb35e085e35a41eb04a64a43b948b8e0
 
 # Create your views here.
 
