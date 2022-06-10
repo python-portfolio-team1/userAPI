@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'customerinfo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'userapidb',
+        'USER': 'admin',
+        'PASSWORD': 'qwerty33',
+        'HOST': 'demoapidb.c8bfolpslfvc.us-east-1.rds.amazonaws.com',
+        'PORT': '3306'
     }
 }
 
