@@ -1,6 +1,8 @@
+from django.core.mail import send_mail
+from django.conf import settings
 from urllib import response
 from django.shortcuts import render
-import email
+# import email
 from .models import Users
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
@@ -57,6 +59,13 @@ def login(request):
 def profile(request):
     return render(request, 'user_api/profile.html')
 
+def send_email(request):
+    subject = 'SIDEHUSTLE PYTHON PORTFOLIO TEAM API'
+    message = ' DREY TAKE YOUR PROJECT '
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['receiver@gmail.com',]
+    send_mail( subject, message, email_from, recipient_list )
+    return redirect('redirect to a new page')
 
 def addrecord(request):
     f = request.POST['firstname']
