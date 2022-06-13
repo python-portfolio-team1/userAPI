@@ -1,6 +1,5 @@
 from .models import Users
 from urllib import response
-from django.urls import reverse
 from django.conf import settings
 from rest_framework import status
 from django.shortcuts import render
@@ -8,7 +7,7 @@ from django.core.mail import send_mail
 from .serializers import UsersSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 
 
 
