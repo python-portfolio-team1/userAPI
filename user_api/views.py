@@ -1,4 +1,3 @@
-# import email
 from .models import Users
 from urllib import response
 from django.urls import reverse
@@ -50,16 +49,8 @@ def users_detail(request):
 
 from django.http import HttpResponseRedirect
 
-# Create your views here.
+# Create your views here
 
-def index(request):
-    return render(request, 'user_api/index.html')
-
-def login(request):
-    return render(request, 'user_api/login.html')
-
-def profile(request):
-    return render(request, 'user_api/profile.html')
 
 def send_email(request, to):
     subject = 'SIDEHUSTLE PYTHON PORTFOLIO TEAM API'
@@ -68,15 +59,15 @@ def send_email(request, to):
     # recipient_list = ['receiver@gmail.com',]
     recipient_list = to
     send_mail( subject, message, email_from, recipient_list )
-    return redirect('redirect to a new page')
+    return HttpResponseRedirect('redirect to a new page')
 
-from django.contrib.auth import authenticate,login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate,login ,logout 
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 def signup(request):
 
     if request.user.is_authenticated:
-        return redirect('/books')
+        return HttpResponseRedirect('/books')
     
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -89,7 +80,7 @@ def signup(request):
             password = form.cleaned_data['password1']
             user = authenticate(username = username,password = password)
             login(request, user)
-            return redirect('/login')
+            return HttpResponseRedirect('/login')
         
         else:
             return render(request,'itemsapp/signup.html',{'form':form})
@@ -101,7 +92,7 @@ def signup(request):
 
 def signin(request):
     if request.user.is_authenticated:
-        return redirect('/login')
+        return HttpResponseRedirect('/login')
     
     if request.method == 'POST':
         username = request.POST['username']
@@ -110,7 +101,7 @@ def signin(request):
 
         if user is not None:
             login(request,user)
-            return redirect('/signup')
+            return HttpResponseRedirect('/signup')
         else:
             form = AuthenticationForm()
             return render(request,'itemsapp/signin.html',{'form':form})
@@ -122,42 +113,5 @@ def signin(request):
 
 def signout(request):
     logout(request)
-    return redirect('/.../signin/')
+    return HttpResponseRedirect('/.../signin/')
 
-def addrecord(request):
-    f = request.POST['firstname']
-    l = request.POST['lastname']    
-    e = request.POST['email']
-    b = request.POST['birthday']
-    m = request.POST['phone']
-    a = request.POST['address']
-    p = request.POST['password']
-    user = user(firstname=f, lastname=l, email=e, birthday=b, phone=m, address=a, password=p)
-    user.save()
-    return HttpResponseRedirect(reverse('profile'))
-
-def delete(request, id):
-    user = Users.objects.get(id=id)    
-    user.delete()
-    return HttpResponseRedirect(reverse('index'))
-
-def update(request, id):
-    user = Users.objects.get(id=id)
-    context = {
-        'user': user,
-    }
-    return render(request, "user_api/profile.html", context)
-
-def updaterecord(request, id):
-    firstname = request.POST['firstname']
-    lastname = request.POST['lastname']
-    emial = request.POST['email']  
-    phone = request.POST['phone']  
-    birtday = request.POST['birthday']  
-    address = request.POST['address']  
-    user = Users.objects.get(id=id)
-    user.firstname = firstname
-    user.lastname = lastname
-    user.email = email
-    user.save()
-    return HttpResponseRedirect(reverse('profile'))
