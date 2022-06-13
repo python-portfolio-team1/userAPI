@@ -1,13 +1,17 @@
-from urllib import response
-from django.shortcuts import render
-import email
+# import email
 from .models import Users
+from urllib import response
 from django.urls import reverse
-from django.http import HttpResponseRedirect, JsonResponse
-from .serializers import UsersSerializer
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from django.conf import settings
 from rest_framework import status
+from django.shortcuts import render
+from django.core.mail import send_mail
+from .serializers import UsersSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.http import HttpResponseRedirect, JsonResponse
+
+
 
 @api_view(['GET', 'POST'])
 def users_list(request):
@@ -57,6 +61,68 @@ def login(request):
 def profile(request):
     return render(request, 'user_api/profile.html')
 
+def send_email(request, to):
+    subject = 'SIDEHUSTLE PYTHON PORTFOLIO TEAM API'
+    message = ' DREY TAKE YOUR PROJECT '
+    email_from = settings.EMAIL_HOST_USER
+    # recipient_list = ['receiver@gmail.com',]
+    recipient_list = to
+    send_mail( subject, message, email_from, recipient_list )
+    return redirect('redirect to a new page')
+
+from django.contrib.auth import authenticate,login
+from django.contrib.auth.forms import UserCreationForm
+
+def signup(request):
+
+    if request.user.is_authenticated:
+        return redirect('/books')
+    
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            if form:
+                send_email(request, form.cleaned_data['username'])      # sending mail upon regsitration
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username = username,password = password)
+            login(request, user)
+            return redirect('/login')
+        
+        else:
+            return render(request,'itemsapp/signup.html',{'form':form})
+    
+    else:
+        form = UserCreationForm()
+        return render(request,'itemsapp/signup.html',{'form':form})
+
+
+def signin(request):
+    if request.user.is_authenticated:
+        return redirect('/login')
+    
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username =username, password = password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('/signup')
+        else:
+            form = AuthenticationForm()
+            return render(request,'itemsapp/signin.html',{'form':form})
+    
+    else:
+        form = AuthenticationForm()
+        return render(request, 'itemsapp/signin.html', {'form':form})
+
+
+def signout(request):
+    logout(request)
+    return redirect('/.../signin/')
 
 def addrecord(request):
     f = request.POST['firstname']
