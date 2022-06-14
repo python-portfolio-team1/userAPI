@@ -3,3 +3,4 @@
 env/ 
 user_api/__pycache__ 
 customerinfo/__pycache__ 
+.env
