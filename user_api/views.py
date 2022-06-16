@@ -66,7 +66,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 def signup(request):
 
     if request.user.is_authenticated:
-        return HttpResponseRedirect('/books')
+        return HttpResponseRedirect('/login')
     
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
